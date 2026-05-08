@@ -2,7 +2,7 @@
 $host = "127.0.0.1";
 $user = "root";
 $pass = "";
-$db   = "db_websema";
+$db   = "senat_mahasiswa";
 
 $conn = new mysqli($host, $user, $pass, $db, 3306);
 

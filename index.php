@@ -27,7 +27,7 @@ function formatTanggal(?string $tanggal): string {
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Tailwind via CDN -->
@@ -37,15 +37,12 @@ function formatTanggal(?string $tanggal): string {
             theme: {
                 extend: {
                     colors: {
-                        blush: "#F4DBD7",
                         night: "#050505",
-                        ember: "#F15A29",
-                        depth: "#0F1B5B",
-                        tide: "#0FD7D6",
+                        midnight: "#0B0B0F",
+                        accent: "#0FD7D6",
                     },
                     fontFamily: {
-                        display: ['"Source Sans 3"', "sans-serif"],
-                        body: ['"Source Sans 3"', "sans-serif"],
+                        body: ['"Space Grotesk"', "sans-serif"],
                     },
                 },
             },
@@ -75,11 +72,40 @@ function formatTanggal(?string $tanggal): string {
         
         /* Card hover effects */
         .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
         .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 30px -10px rgba(15, 215, 214, 0.2);
+            transform: translateY(-2px);
+            border-color: rgba(15, 215, 214, 0.5);
+        }
+
+        .clean-panel {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 1rem;
+            right: 1rem;
+            bottom: 0.35rem;
+            height: 2px;
+            border-radius: 999px;
+            background: #0FD7D6;
+            opacity: 0;
+            transform: scaleX(0.4);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            opacity: 1;
+            transform: scaleX(1);
         }
         
         /* Mobile menu animation */
@@ -126,7 +152,7 @@ function formatTanggal(?string $tanggal): string {
         .loading-spinner {
             width: 60px;
             height: 60px;
-            border: 3px solid rgba(15, 215, 214, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.1);
             border-top-color: #0FD7D6;
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -236,7 +262,7 @@ function formatTanggal(?string $tanggal): string {
     </a>
 
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-night/90 backdrop-blur-md">
+    <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 border-b border-transparent" style="transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;">
         <div class="mx-auto max-w-7xl px-6">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
@@ -251,14 +277,14 @@ function formatTanggal(?string $tanggal): string {
                 
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center gap-2">
-                    <a href="#home" class="px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-smooth">Home</a>
-                    <a href="#bidang" class="px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-smooth">Bidang</a>
-                    <a href="#komunitas" class="px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-smooth">Komunitas</a>
-                    <a href="#berita" class="px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-smooth">Berita</a>
-                    <a href="#tentang" class="px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-smooth">Tentang</a>
-                    <a href="#kontak" class="px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-smooth">Kontak</a>
-                    <a href="admin/dashboard.php" class="ml-4 px-4 py-2 bg-tide/20 text-tide hover:bg-tide/30 rounded-lg transition-smooth">
-                        Admin
+                    <a href="#home" class="nav-link active px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-full transition-smooth">Home</a>
+                    <a href="#bidang" class="nav-link px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-full transition-smooth">Bidang</a>
+                    <a href="#komunitas" class="nav-link px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-full transition-smooth">Komunitas</a>
+                    <a href="#berita" class="nav-link px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-full transition-smooth">Berita</a>
+                    <a href="#tentang" class="nav-link px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-full transition-smooth">Tentang</a>
+                    <a href="#kontak" class="nav-link px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-full transition-smooth">Kontak</a>
+                    <a href="admin/dashboard.php" class="ml-4 px-5 py-2.5 rounded-full bg-gradient-to-r from-ember to-tide text-night font-semibold shadow-[0_10px_30px_-15px_rgba(15,215,214,0.7)] hover:shadow-[0_0_30px_rgba(241,90,41,0.35)] transition-all">
+                        Admin Panel
                     </a>
                 </nav>
                 
@@ -273,7 +299,7 @@ function formatTanggal(?string $tanggal): string {
     <!-- Mobile Menu -->
     <div class="fixed inset-0 z-50 md:hidden hidden" id="mobileMenu">
         <div class="absolute inset-0 bg-black/70" id="menuOverlay"></div>
-        <div class="absolute right-0 top-0 bottom-0 w-80 bg-night-light border-l border-white/10 p-6 mobile-menu" id="mobileMenuPanel">
+        <div class="absolute right-0 top-0 bottom-0 w-80 bg-midnight border-l border-white/10 p-6 mobile-menu" id="mobileMenuPanel">
             <div class="flex justify-between items-center mb-8">
                 <div class="flex items-center gap-3">
                     <img src="asset/img/icon.png" alt="Logo" class="h-10 w-10 rounded-full">
@@ -285,13 +311,13 @@ function formatTanggal(?string $tanggal): string {
             </div>
             
             <nav class="space-y-2">
-                <a href="#home" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-lg">Home</a>
-                <a href="#bidang" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-lg">Bidang</a>
-                <a href="#komunitas" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-lg">Komunitas</a>
-                <a href="#berita" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-lg">Berita</a>
-                <a href="#tentang" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-lg">Tentang</a>
-                <a href="#kontak" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-lg">Kontak</a>
-                <a href="admin/dashboard.php" class="block py-3 px-4 mt-4 bg-tide/20 text-tide hover:bg-tide/30 rounded-lg">Admin Login</a>
+                <a href="#home" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-xl">Home</a>
+                <a href="#bidang" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-xl">Bidang</a>
+                <a href="#komunitas" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-xl">Komunitas</a>
+                <a href="#berita" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-xl">Berita</a>
+                <a href="#tentang" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-xl">Tentang</a>
+                <a href="#kontak" class="block py-3 px-4 text-white/70 hover:text-white hover:bg-white/5 rounded-xl">Kontak</a>
+                <a href="admin/dashboard.php" class="block py-3 px-4 mt-4 rounded-full bg-gradient-to-r from-ember to-tide text-night font-semibold text-center">Admin Panel</a>
             </nav>
             
             <div class="absolute bottom-8 left-6 right-6">
@@ -313,122 +339,77 @@ function formatTanggal(?string $tanggal): string {
     </div>
 
     <!-- Main Content -->
-    <main id="main-content" class="pt-20 main-content">
-        <!-- Hero Section -->
-        <section id="home" class="relative overflow-hidden py-16 lg:py-24">
-            <div class="absolute inset-0 opacity-30 pointer-events-none">
-                <div class="absolute -right-20 top-10 h-64 w-64 rounded-full bg-tide/20 blur-3xl"></div>
-                <div class="absolute -left-20 bottom-10 h-72 w-72 rounded-full bg-blush/20 blur-3xl"></div>
-            </div>
-            
-            <div class="mx-auto max-w-7xl px-6">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <!-- Left Content -->
-                    <div class="text-center lg:text-left">
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 mb-6">
-                            <span class="h-2 w-2 rounded-full bg-ember animate-pulse"></span>
-                            <span class="text-xs uppercase tracking-[0.5em] text-white/60">SENAT MAHASISWA</span>
-                        </div>
-                        
-                        <h1 class="font-display text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6">
-                            Organisasi wadah kreatif untuk komunitas non akademik mahasiswa FTI UAJY.
-                        </h1>
-                        
-                        <p class="text-lg text-white/80 mb-8 max-w-2xl lg:mx-0 mx-auto">
-                            SEMA hadir dengan wajah baru kolaboratif, hangat, dan responsif terhadap isu kampus. Kami merancang program strategis, merayakan komunitas, dan memastikan suara mahasiswa terdengar jelas.
-                        </p>
-                        
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-                            <a href="#berita" class="group flex items-center justify-center gap-2 px-8 py-4 bg-tide text-night font-semibold rounded-full hover:shadow-[0_0_30px_rgba(15,215,214,0.4)] transition-all">
-                                Jelajahi Agenda
-                                <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
-                            </a>
-                            <a href="#komunitas" class="px-8 py-4 border border-white/20 rounded-full font-semibold hover:border-white hover:bg-white/5 transition-all">
-                                Temui Komunitas
-                            </a>
-                        </div>
-                        
-                        <!-- Stats -->
-                        <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto lg:mx-0">
-                            <div class="p-4 border border-white/5 bg-white/5 rounded-2xl">
-                                <div class="text-2xl font-bold text-tide">12+</div>
-                                <div class="text-xs uppercase tracking-wider text-white/60">Komunitas</div>
-                            </div>
-                            <div class="p-4 border border-white/5 bg-white/5 rounded-2xl">
-                                <div class="text-2xl font-bold text-ember">50+</div>
-                                <div class="text-xs uppercase tracking-wider text-white/60">Kegiatan</div>
-                            </div>
-                            <div class="p-4 border border-white/5 bg-white/5 rounded-2xl">
-                                <div class="text-2xl font-bold text-blush">1000+</div>
-                                <div class="text-xs uppercase tracking-wider text-white/60">Mahasiswa</div>
-                            </div>
-                        </div>
+    <main id="main-content" class="main-content">
+        <!-- Hero Section - Full Width Auto-Sliding -->
+        <section id="home" class="relative w-full h-screen overflow-hidden" style="background: #050505;">
+            <!-- Image Slider Container -->
+            <div class="absolute inset-0 w-full h-full">
+                <div id="heroSlider" class="flex transition-transform duration-700 h-full">
+                    <!-- Slide 1 -->
+                    <div class="w-full h-full flex-shrink-0 relative">
+                        <img src="asset/img/seminar%20backdrop.JPG" alt="Seminar SEMA" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-b from-night/30 via-transparent to-night/80"></div>
                     </div>
-                    
-                    <!-- Right Content - Image Slider -->
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-tide/20 via-transparent to-ember/20 blur-3xl"></div>
-                        <div class="relative rounded-[2rem] overflow-hidden border border-white/10 bg-night/40 shadow-2xl shadow-tide/20">
-                            <div class="relative h-[500px] overflow-hidden">
-                                <div id="slider" class="flex transition-transform duration-500 h-full">
-                                    <!-- Slide 1 -->
-                                    <div class="w-full h-full flex-shrink-0 relative">
-                                        <img src="asset/img/seminar%20backdrop.JPG" alt="Seminar SEMA" class="w-full h-full object-cover">
-                                        <div class="absolute inset-0 bg-gradient-to-t from-night/90 via-night/30 to-transparent"></div>
-                                        <div class="absolute bottom-0 left-0 right-0 p-6">
-                                            <p class="text-xs uppercase tracking-[0.5em] text-white/60 mb-2">Dokumentasi Lapangan</p>
-                                            <h3 class="text-2xl font-semibold mb-2">Seminar Kolaborasi</h3>
-                                            <p class="text-white/70">SEMA FTI memfasilitasi dialog lintas program studi.</p>
-                                        </div>
-                                    </div>
-                                    <!-- Slide 2 -->
-                                    <div class="w-full h-full flex-shrink-0 relative">
-                                        <img src="asset/img/spfest.JPG" alt="Sparkfest #13" class="w-full h-full object-cover">
-                                        <div class="absolute inset-0 bg-gradient-to-t from-night/90 via-night/30 to-transparent"></div>
-                                        <div class="absolute bottom-0 left-0 right-0 p-6">
-                                            <p class="text-xs uppercase tracking-[0.5em] text-white/60 mb-2">Dokumentasi Lapangan</p>
-                                            <h3 class="text-2xl font-semibold mb-2">Sparkfest #13</h3>
-                                            <p class="text-white/70">Festival komunitas dengan inovasi dan seni.</p>
-                                        </div>
-                                    </div>
-                                    <!-- Slide 3 -->
-                                    <div class="w-full h-full flex-shrink-0 relative">
-                                        <img src="asset/img/baksos.JPG" alt="Bakti Sosial" class="w-full h-full object-cover">
-                                        <div class="absolute inset-0 bg-gradient-to-t from-night/90 via-night/30 to-transparent"></div>
-                                        <div class="absolute bottom-0 left-0 right-0 p-6">
-                                            <p class="text-xs uppercase tracking-[0.5em] text-white/60 mb-2">Dokumentasi Lapangan</p>
-                                            <h3 class="text-2xl font-semibold mb-2">Baksos SEMA</h3>
-                                            <p class="text-white/70">Kegiatan pengabdian bakti sosial.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Slider Controls -->
-                                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                                    <button class="slider-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all"></button>
-                                    <button class="slider-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all"></button>
-                                    <button class="slider-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all"></button>
-                                </div>
-                                
-                                <button id="prevSlide" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all">
-                                    <i class="fas fa-chevron-left text-white"></i>
-                                </button>
-                                <button id="nextSlide" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all">
-                                    <i class="fas fa-chevron-right text-white"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <!-- Slide 2 -->
+                    <div class="w-full h-full flex-shrink-0 relative">
+                        <img src="asset/img/spfest.JPG" alt="Sparkfest" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-b from-night/30 via-transparent to-night/80"></div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="w-full h-full flex-shrink-0 relative">
+                        <img src="asset/img/baksos.JPG" alt="Bakti Sosial" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-b from-night/30 via-transparent to-night/80"></div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Centered Content Overlay -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6 z-10">
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 mb-8">
+                        <span class="h-2 w-2 rounded-full bg-accent animate-pulse"></span>
+                        <span class="text-xs uppercase tracking-[0.5em] text-white/70">Senat Mahasiswa FTI UAJY</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight">
+                        Organisasi Wadah Kreatif Mahasiswa FTI
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+                        Kolaboratif, hangat, dan responsif terhadap isu kampus. Kami merancang program strategis dan merayakan komunitas.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="#bidang" class="group flex items-center justify-center gap-2 px-8 py-4 bg-accent text-night font-semibold rounded-lg hover:opacity-90 transition-opacity">
+                            Jelajahi Bidang
+                            <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                        <a href="#komunitas" class="px-8 py-4 border border-white/30 rounded-lg font-semibold hover:border-white/50 hover:bg-white/5 transition-all">
+                            Temui Komunitas
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slider Indicators -->
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                <button class="hero-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all"></button>
+                <button class="hero-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all"></button>
+                <button class="hero-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all"></button>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 animate-bounce z-20">
+                <i class="fas fa-chevron-down text-2xl"></i>
             </div>
         </section>
 
         <!-- Bidang Section -->
-        <section id="bidang" class="py-20 bg-night-light/50">
+        <section id="bidang" class="py-20 bg-midnight/30">
             <div class="mx-auto max-w-7xl px-6">
                 <div class="text-center mb-12">
                     <span class="text-xs uppercase tracking-[0.5em] text-white/60">Bidang Senat Mahasiswa</span>
-                    <h2 class="font-display text-3xl md:text-4xl font-bold mt-4 mb-4">Temui Bidang yang Ada di SEMA</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4">Temui Bidang yang Ada di SEMA</h2>
                     <p class="text-white/70 max-w-2xl mx-auto">
                         Lima bidang utama yang bekerja sinergis untuk melayani dan mengembangkan potensi mahasiswa FTI UAJY.
                     </p>
@@ -437,77 +418,74 @@ function formatTanggal(?string $tanggal): string {
                 <!-- Row 1: 3 cards -->
                 <div class="grid md:grid-cols-3 gap-8 mb-8">
                     <!-- Card 1: Sosial Masyarakat -->
-                    <div class="card-hover border border-white/5 bg-white/5 rounded-3xl p-8">
-                        <div class="w-14 h-14 bg-ember/20 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fas fa-hand-holding-heart text-ember text-2xl"></i>
+                    <div class="card-hover clean-panel rounded-xl p-8" style="border-color: rgba(16,185,129,0.15);">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(16,185,129,0.12);">
+                            <i class="fas fa-hand-holding-heart text-xl" style="color: #10B981;"></i>
                         </div>
-                        <span class="text-xs uppercase tracking-[0.5em] text-ember">Bidang Sosial Masyarakat</span>
-                        <h3 class="text-2xl font-semibold mt-4 mb-3">Sosial Masyarakat</h3>
-                        <p class="text-white/70 mb-6">
-                            Merancang gerakan sosial dan advokasi, memastikan kebijakan kampus berpihak pada mahasiswa dan masyarakat sekitar.
+                        <h3 class="text-xl font-semibold mb-3">Sosial Masyarakat</h3>
+                        <p class="text-white/70 mb-4 text-sm">
+                            Merancang gerakan sosial dan advokasi, memastikan kebijakan kampus berpihak pada mahasiswa.
                         </p>
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-ember text-sm"></i>
-                                <span class="text-white/80">Klinik Aspirasi Mingguan</span>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-xs" style="color: #10B981;"></i>
+                                <span>Klinik Aspirasi</span>
                             </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-ember text-sm"></i>
-                                <span class="text-white/80">Kampanye Aksi Nyata</span>
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-xs" style="color: #10B981;"></i>
+                                <span>Aksi Nyata</span>
                             </li>
                         </ul>
-                        <a href="bidang-detail.php?id=3" class="inline-flex items-center gap-2 text-ember hover:text-ember/80 transition-colors">
-                            Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
+                        <a href="bidang-detail.php?id=3" class="inline-flex items-center gap-1 transition-colors text-sm font-medium hover:text-white/70" style="color: #10B981;">
+                            Pelajari <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     
                     <!-- Card 2: Kominfo -->
-                    <div class="card-hover border border-white/5 bg-white/5 rounded-3xl p-8">
-                        <div class="w-14 h-14 bg-tide/20 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fas fa-broadcast-tower text-tide text-2xl"></i>
+                    <div class="card-hover clean-panel rounded-xl p-8" style="border-color: rgba(139,92,246,0.15);">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(139,92,246,0.12);">
+                            <i class="fas fa-broadcast-tower text-xl" style="color: #8B5CF6;"></i>
                         </div>
-                        <span class="text-xs uppercase tracking-[0.5em] text-tide">Bidang Kominfo</span>
-                        <h3 class="text-2xl font-semibold mt-4 mb-3">Studio Komunikasi</h3>
-                        <p class="text-white/70 mb-6">
+                        <h3 class="text-xl font-semibold mb-3">Komunikasi Informasi</h3>
+                        <p class="text-white/70 mb-4 text-sm">
                             Mengemas narasi positif, membangun dokumentasi visual, dan menyebarkan informasi akurat.
                         </p>
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-tide text-sm"></i>
-                                <span class="text-white/80">Produksi Weekly Digest</span>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-xs" style="color: #8B5CF6;"></i>
+                                <span>Weekly Digest</span>
                             </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-tide text-sm"></i>
-                                <span class="text-white/80">Pelatihan desain & audio</span>
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-xs" style="color: #8B5CF6;"></i>
+                                <span>Desain & Audio</span>
                             </li>
                         </ul>
-                        <a href="bidang-detail.php?id=5" class="inline-flex items-center gap-2 text-tide hover:text-tide/80 transition-colors">
-                            Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
+                        <a href="bidang-detail.php?id=5" class="inline-flex items-center gap-1 transition-colors text-sm font-medium hover:text-white/70" style="color: #8B5CF6;">
+                            Pelajari <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     
                     <!-- Card 3: Usaha Dana -->
-                    <div class="card-hover border border-white/5 bg-white/5 rounded-3xl p-8">
-                        <div class="w-14 h-14 bg-yellow-400/20 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fas fa-coins text-yellow-400 text-2xl"></i>
+                    <div class="card-hover clean-panel rounded-xl p-8" style="border-color: rgba(245,158,11,0.15);">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(245,158,11,0.12);">
+                            <i class="fas fa-coins text-xl" style="color: #F59E0B;"></i>
                         </div>
-                        <span class="text-xs uppercase tracking-[0.5em] text-yellow-400">Bidang Usaha Dana</span>
-                        <h3 class="text-2xl font-semibold mt-4 mb-3">Usaha Dana</h3>
-                        <p class="text-white/70 mb-6">
-                            Mengelola dan mengembangkan sumber pendanaan organisasi untuk mendukung seluruh program dan kegiatan SEMA.
+                        <h3 class="text-xl font-semibold mb-3">Usaha Dana</h3>
+                        <p class="text-white/70 mb-4 text-sm">
+                            Mengelola sumber pendanaan organisasi untuk mendukung program dan kegiatan SEMA.
                         </p>
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-yellow-400 text-sm"></i>
-                                <span class="text-white/80">Pengelolaan Dana Organisasi</span>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-xs" style="color: #F59E0B;"></i>
+                                <span>Pengelolaan Dana</span>
                             </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-yellow-400 text-sm"></i>
-                                <span class="text-white/80">Program Wirausaha Mahasiswa</span>
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-xs" style="color: #F59E0B;"></i>
+                                <span>Program Wirausaha</span>
                             </li>
                         </ul>
-                        <a href="bidang-detail.php?id=4" class="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-400/80 transition-colors">
-                            Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
+                        <a href="bidang-detail.php?id=4" class="inline-flex items-center gap-1 transition-colors text-sm font-medium hover:text-white/70" style="color: #F59E0B;">
+                            Pelajari <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -515,52 +493,50 @@ function formatTanggal(?string $tanggal): string {
                 <!-- Row 2: 2 cards centered -->
                 <div class="grid md:grid-cols-2 gap-8 md:max-w-3xl md:mx-auto">
                     <!-- Card 4: Minat Bakat -->
-                    <div class="card-hover border border-white/5 bg-white/5 rounded-3xl p-8">
-                        <div class="w-14 h-14 bg-blush/20 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fas fa-star text-blush text-2xl"></i>
+                    <div class="card-hover clean-panel rounded-xl p-8" style="border-color: rgba(236,72,153,0.15);">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(236,72,153,0.12);">
+                            <i class="fas fa-star text-xl" style="color: #EC4899;"></i>
                         </div>
-                        <span class="text-xs uppercase tracking-[0.5em] text-blush">Bidang Minat Bakat</span>
-                        <h3 class="text-2xl font-semibold mt-4 mb-3">Minat &amp; Bakat</h3>
-                        <p class="text-white/70 mb-6">
-                            Memfasilitasi pengembangan potensi dan bakat mahasiswa melalui berbagai kegiatan, kompetisi, dan program kreatif.
+                        <h3 class="text-xl font-semibold mb-3">Minat &amp; Bakat</h3>
+                        <p class="text-white/70 mb-4 text-sm">
+                            Memfasilitasi pengembangan potensi melalui kegiatan, kompetisi, dan program kreatif.
                         </p>
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-blush text-sm"></i>
-                                <span class="text-white/80">Festival Seni & Olahraga</span>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-xs" style="color: #EC4899;"></i>
+                                <span>Festival Seni & Olahraga</span>
                             </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-blush text-sm"></i>
-                                <span class="text-white/80">Kompetisi & Showcase Bakat</span>
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-xs" style="color: #EC4899;"></i>
+                                <span>Showcase Bakat</span>
                             </li>
                         </ul>
-                        <a href="bidang-detail.php?id=2" class="inline-flex items-center gap-2 text-blush hover:text-blush/80 transition-colors">
-                            Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
+                        <a href="bidang-detail.php?id=2" class="inline-flex items-center gap-1 transition-colors text-sm font-medium hover:text-white/70" style="color: #EC4899;">
+                            Pelajari <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     
                     <!-- Card 5: Pengurus Harian -->
-                    <div class="card-hover border border-white/5 bg-white/5 rounded-3xl p-8">
-                        <div class="w-14 h-14 bg-purple-400/20 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fas fa-crown text-purple-400 text-2xl"></i>
+                    <div class="card-hover clean-panel rounded-xl p-8" style="border-color: rgba(15,215,214,0.15);">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(15,215,214,0.12);">
+                            <i class="fas fa-crown text-xl" style="color: #0FD7D6;"></i>
                         </div>
-                        <span class="text-xs uppercase tracking-[0.5em] text-purple-400">Pengurus Harian</span>
-                        <h3 class="text-2xl font-semibold mt-4 mb-3">Pengurus Harian</h3>
-                        <p class="text-white/70 mb-6">
-                            Mengoordinasikan seluruh kegiatan operasional SEMA, memimpin rapat, dan memastikan sinergi antar bidang berjalan optimal.
+                        <h3 class="text-xl font-semibold mb-3">Pengurus Harian</h3>
+                        <p class="text-white/70 mb-4 text-sm">
+                            Mengoordinasikan kegiatan operasional SEMA dan memastikan sinergi antar bidang optimal.
                         </p>
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-purple-400 text-sm"></i>
-                                <span class="text-white/80">Koordinasi Antar Bidang</span>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-accent text-xs"></i>
+                                <span>Koordinasi Bidang</span>
                             </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-purple-400 text-sm"></i>
-                                <span class="text-white/80">Perencanaan Program Strategis</span>
+                            <li class="flex items-center gap-2 text-sm text-white/70">
+                                <i class="fas fa-check text-accent text-xs"></i>
+                                <span>Program Strategis</span>
                             </li>
                         </ul>
-                        <a href="bidang-detail.php?id=1" class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-400/80 transition-colors">
-                            Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
+                        <a href="bidang-detail.php?id=1" class="inline-flex items-center gap-1 text-accent hover:text-white/70 transition-colors text-sm font-medium">
+                            Pelajari <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -572,130 +548,95 @@ function formatTanggal(?string $tanggal): string {
             <div class="mx-auto max-w-7xl px-6">
                 <div class="text-center mb-14">
                     <span class="text-xs uppercase tracking-[0.5em] text-white/60">Unit Kegiatan Mahasiswa</span>
-                    <h2 class="font-display text-3xl md:text-4xl font-bold mt-4 mb-4">Komunitas di FTI UAJY</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4">Komunitas di FTI UAJY</h2>
                     <p class="text-white/70 max-w-2xl mx-auto">
-                        Bergabunglah dengan komunitas yang sesuai minat dan bakatmu. Setiap komunitas adalah ruang untuk bertumbuh, berkolaborasi, dan berprestasi.
+                        Bergabunglah dengan komunitas yang sesuai minat dan bakatmu untuk bertumbuh dan berprestasi.
                     </p>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                     <!-- Badminton -->
-                    <div class="card-hover group relative border border-white/5 bg-white/5 rounded-3xl overflow-hidden">
-                        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-tide to-tide/30"></div>
-                        <div class="p-8">
-                            <div class="flex items-start justify-between mb-6">
-                                <div class="w-16 h-16 bg-tide/10 rounded-2xl flex items-center justify-center border border-tide/20 group-hover:bg-tide/20 transition-colors">
-                                    <i class="fas fa-feather-alt text-tide text-2xl"></i>
-                                </div>
-                                <span class="px-3 py-1 bg-tide/10 text-tide text-xs font-medium rounded-full border border-tide/20">Olahraga</span>
+                    <div class="card-hover clean-panel rounded-lg p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-feather-alt text-accent text-lg"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-2">Badminton</h3>
-                            <p class="text-white/60 text-sm leading-relaxed mb-6">
-                                Komunitas bulu tangkis FTI UAJY yang aktif berlatih dan mengikuti kompetisi antar kampus. Terbuka untuk semua level, dari pemula hingga atlet.
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-white/40">
-                                <span class="flex items-center gap-1.5"><i class="fas fa-users"></i> Aktif</span>
-                                <span class="flex items-center gap-1.5"><i class="fas fa-trophy"></i> Kompetitif</span>
-                            </div>
+                            <h3 class="font-semibold">Badminton</h3>
                         </div>
+                        <p class="text-white/70 text-sm mb-3">
+                            Komunitas bulu tangkis FTI aktif berlatih dan kompetitif antar kampus.
+                        </p>
+                        <span class="text-xs text-white/50">⚽ Olahraga • Aktif</span>
                     </div>
 
                     <!-- SIKMA -->
-                    <div class="card-hover group relative border border-white/5 bg-white/5 rounded-3xl overflow-hidden">
-                        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-ember to-ember/30"></div>
-                        <div class="p-8">
-                            <div class="flex items-start justify-between mb-6">
-                                <div class="w-16 h-16 bg-ember/10 rounded-2xl flex items-center justify-center border border-ember/20 group-hover:bg-ember/20 transition-colors">
-                                    <i class="fas fa-music text-ember text-2xl"></i>
-                                </div>
-                                <span class="px-3 py-1 bg-ember/10 text-ember text-xs font-medium rounded-full border border-ember/20">Seni & Budaya</span>
+                    <div class="card-hover clean-panel rounded-lg p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-music text-accent text-lg"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-2">SIKMA</h3>
-                            <p class="text-white/60 text-sm leading-relaxed mb-6">
-                                Komunitas seni dan musik mahasiswa FTI yang mewadahi kreativitas di bidang musik, vokal, dan pertunjukan seni panggung.
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-white/40">
-                                <span class="flex items-center gap-1.5"><i class="fas fa-users"></i> Aktif</span>
-                                <span class="flex items-center gap-1.5"><i class="fas fa-guitar"></i> Kreatif</span>
-                            </div>
+                            <h3 class="font-semibold">SIKMA</h3>
                         </div>
+                        <p class="text-white/70 text-sm mb-3">
+                            Komunitas seni dan musik dengan fokus pada pertunjukan panggung.
+                        </p>
+                        <span class="text-xs text-white/50">🎵 Seni & Budaya • Kreatif</span>
                     </div>
 
-                    <!-- Texere (Basket) -->
-                    <div class="card-hover group relative border border-white/5 bg-white/5 rounded-3xl overflow-hidden">
-                        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-orange-400/30"></div>
-                        <div class="p-8">
-                            <div class="flex items-start justify-between mb-6">
-                                <div class="w-16 h-16 bg-orange-400/10 rounded-2xl flex items-center justify-center border border-orange-400/20 group-hover:bg-orange-400/20 transition-colors">
-                                    <i class="fas fa-basketball text-orange-400 text-2xl"></i>
-                                </div>
-                                <span class="px-3 py-1 bg-orange-400/10 text-orange-400 text-xs font-medium rounded-full border border-orange-400/20">Olahraga</span>
+                    <!-- Texere Basket -->
+                    <div class="card-hover clean-panel rounded-lg p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-basketball text-accent text-lg"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-2">Texere</h3>
-                            <p class="text-white/60 text-sm leading-relaxed mb-6">
-                                Tim basket FTI UAJY yang bersaing di berbagai turnamen kampus dan antar universitas. Texere membangun kekompakan dan sportivitas.
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-white/40">
-                                <span class="flex items-center gap-1.5"><i class="fas fa-users"></i> Aktif</span>
-                                <span class="flex items-center gap-1.5"><i class="fas fa-trophy"></i> Kompetitif</span>
-                            </div>
+                            <h3 class="font-semibold">Texere</h3>
                         </div>
+                        <p class="text-white/70 text-sm mb-3">
+                            Tim basket FTI bersaing di turnamen kampus dan antar universitas.
+                        </p>
+                        <span class="text-xs text-white/50">⚽ Olahraga • Kompetitif</span>
                     </div>
 
                     <!-- FTI Image -->
-                    <div class="card-hover group relative border border-white/5 bg-white/5 rounded-3xl overflow-hidden">
-                        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-400 to-purple-400/30"></div>
-                        <div class="p-8">
-                            <div class="flex items-start justify-between mb-6">
-                                <div class="w-16 h-16 bg-purple-400/10 rounded-2xl flex items-center justify-center border border-purple-400/20 group-hover:bg-purple-400/20 transition-colors">
-                                    <i class="fas fa-camera text-purple-400 text-2xl"></i>
-                                </div>
-                                <span class="px-3 py-1 bg-purple-400/10 text-purple-400 text-xs font-medium rounded-full border border-purple-400/20">Fotografi & Videografi</span>
+                    <div class="card-hover clean-panel rounded-lg p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-camera text-accent text-lg"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-2">FTI Image</h3>
-                            <p class="text-white/60 text-sm leading-relaxed mb-6">
-                                Komunitas fotografi dan videografi FTI yang mendokumentasikan momen kampus, mengadakan pameran foto, dan mengembangkan skill visual storytelling.
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-white/40">
-                                <span class="flex items-center gap-1.5"><i class="fas fa-users"></i> Aktif</span>
-                                <span class="flex items-center gap-1.5"><i class="fas fa-image"></i> Visual</span>
-                            </div>
+                            <h3 class="font-semibold">FTI Image</h3>
                         </div>
+                        <p class="text-white/70 text-sm mb-3">
+                            Komunitas fotografi dan videografi mendokumentasikan momen kampus.
+                        </p>
+                        <span class="text-xs text-white/50">📸 Visual • Kreatif</span>
                     </div>
 
                     <!-- Futsal -->
-                    <div class="card-hover group relative border border-white/5 bg-white/5 rounded-3xl overflow-hidden">
-                        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 to-green-400/30"></div>
-                        <div class="p-8">
-                            <div class="flex items-start justify-between mb-6">
-                                <div class="w-16 h-16 bg-green-400/10 rounded-2xl flex items-center justify-center border border-green-400/20 group-hover:bg-green-400/20 transition-colors">
-                                    <i class="fas fa-futbol text-green-400 text-2xl"></i>
-                                </div>
-                                <span class="px-3 py-1 bg-green-400/10 text-green-400 text-xs font-medium rounded-full border border-green-400/20">Olahraga</span>
+                    <div class="card-hover clean-panel rounded-lg p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-futbol text-accent text-lg"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-2">Futsal</h3>
-                            <p class="text-white/60 text-sm leading-relaxed mb-6">
-                                Komunitas futsal FTI UAJY yang rutin berlatih dan aktif mengikuti turnamen. Membangun semangat tim, strategi, dan solidaritas antar mahasiswa.
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-white/40">
-                                <span class="flex items-center gap-1.5"><i class="fas fa-users"></i> Aktif</span>
-                                <span class="flex items-center gap-1.5"><i class="fas fa-trophy"></i> Kompetitif</span>
-                            </div>
+                            <h3 class="font-semibold">Futsal</h3>
                         </div>
+                        <p class="text-white/70 text-sm mb-3">
+                            Komunitas futsal aktif berlatih dan mengikuti turnamen reguler.
+                        </p>
+                        <span class="text-xs text-white/50">⚽ Olahraga • Kompetitif</span>
                     </div>
 
                     <!-- CTA Card -->
-                    <div class="relative border border-dashed border-white/10 rounded-3xl p-8 flex flex-col items-center justify-center text-center hover:bg-white/5 transition-colors group cursor-pointer">
-                        <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-tide/10 transition-colors border border-white/10">
-                            <i class="fas fa-plus text-white/40 text-2xl group-hover:text-tide transition-colors"></i>
+                    <div class="clean-panel rounded-lg p-6 flex flex-col items-center justify-center text-center hover:border-accent/50 transition-colors">
+                        <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mb-3">
+                            <i class="fas fa-plus text-accent text-lg"></i>
                         </div>
-                        <h3 class="text-lg font-semibold text-white/70 mb-2 group-hover:text-white transition-colors">Komunitas Lainnya</h3>
-                        <p class="text-white/40 text-sm leading-relaxed">
-                            Ada komunitas lain yang ingin kamu ketahui? Hubungi kami untuk informasi selengkapnya.
+                        <h3 class="font-semibold mb-1">Komunitas Lainnya</h3>
+                        <p class="text-white/60 text-xs mb-3">
+                            Hubungi kami untuk info selengkapnya
                         </p>
-                        <a href="#kontak" class="mt-6 px-5 py-2.5 bg-tide/10 text-tide border border-tide/20 rounded-xl text-sm font-medium hover:bg-tide/20 transition-colors">
-                            Hubungi Kami
+                        <a href="#kontak" class="text-xs text-accent hover:text-white/70 transition-colors">
+                            Hubungi Kami →
                         </a>
                     </div>
 
@@ -709,7 +650,7 @@ function formatTanggal(?string $tanggal): string {
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                     <div>
                         <span class="text-xs uppercase tracking-[0.5em] text-white/60">Berita Terkini</span>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold mt-4">Update Terbaru dari SEMA</h2>
+                        <h2 class="text-3xl md:text-4xl font-bold mt-4">Update Terbaru dari SEMA</h2>
                     </div>
                     <div class="flex items-center gap-2 text-white/60 mt-4 md:mt-0">
                         <i class="fas fa-sync-alt text-sm"></i>
@@ -719,46 +660,38 @@ function formatTanggal(?string $tanggal): string {
                 
                 <div class="grid md:grid-cols-3 gap-8">
                     <?php if ($events): ?>
-                        <?php 
-                        $colors = [
-                            ['bg' => 'from-tide/20', 'badge_bg' => 'bg-tide/20', 'badge_text' => 'text-tide', 'link' => 'text-tide hover:text-tide/80'],
-                            ['bg' => 'from-ember/20', 'badge_bg' => 'bg-ember/20', 'badge_text' => 'text-ember', 'link' => 'text-ember hover:text-ember/80'],
-                            ['bg' => 'from-blush/40', 'badge_bg' => 'bg-blush/20', 'badge_text' => 'text-blush', 'link' => 'text-blush hover:text-blush/80'],
-                        ];
-                        foreach ($events as $i => $event):
-                            $c = $colors[$i % 3];
-                        ?>
-                        <article class="card-hover border border-white/5 bg-white/5 rounded-3xl overflow-hidden">
+                        <?php foreach ($events as $i => $event): ?>
+                        <article class="card-hover clean-panel rounded-lg overflow-hidden">
                             <?php if (!empty($event['foto_event'])): ?>
                                 <div class="aspect-[4/3] overflow-hidden">
                                     <img src="<?php echo h($event['foto_event']); ?>" alt="<?php echo h($event['judul']); ?>" class="w-full h-full object-cover">
                                 </div>
                             <?php else: ?>
-                                <div class="aspect-[4/3] bg-gradient-to-br <?php echo $c['bg']; ?> to-transparent"></div>
+                                <div class="aspect-[4/3] bg-gradient-to-br from-accent/10 to-transparent"></div>
                             <?php endif; ?>
-                            <div class="p-8">
-                                <div class="flex justify-between items-center mb-4">
-                                    <span class="text-xs uppercase tracking-[0.5em] text-white/60"><?php echo formatTanggal($event['tanggal']); ?></span>
-                                    <span class="px-3 py-1 <?php echo $c['badge_bg']; ?> <?php echo $c['badge_text']; ?> text-xs font-medium rounded-full">Event</span>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-xs uppercase tracking-[0.4em] text-white/50"><?php echo formatTanggal($event['tanggal']); ?></span>
+                                    <span class="px-2 py-1 bg-accent/10 text-accent text-xs font-medium rounded">Event</span>
                                 </div>
-                                <h3 class="text-xl font-semibold mb-3"><?php echo h($event['judul']); ?></h3>
-                                <p class="text-white/70 mb-4">
-                                    <?php echo h(mb_substr($event['deskripsi'] ?? '', 0, 100)) . (mb_strlen($event['deskripsi'] ?? '') > 100 ? '...' : ''); ?>
+                                <h3 class="text-lg font-semibold mb-2"><?php echo h($event['judul']); ?></h3>
+                                <p class="text-white/70 mb-3 text-sm">
+                                    <?php echo h(mb_substr($event['deskripsi'] ?? '', 0, 90)) . (mb_strlen($event['deskripsi'] ?? '') > 90 ? '...' : ''); ?>
                                 </p>
                                 <?php if (!empty($event['lokasi'])): ?>
-                                    <p class="text-white/40 text-xs mb-4"><i class="fas fa-map-marker-alt mr-1"></i><?php echo h($event['lokasi']); ?></p>
+                                    <p class="text-white/40 text-xs mb-3"><i class="fas fa-map-marker-alt mr-1"></i><?php echo h($event['lokasi']); ?></p>
                                 <?php endif; ?>
-                                <a href="#" class="inline-flex items-center gap-2 <?php echo $c['link']; ?> transition-colors">
-                                    Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+                                <a href="#" class="inline-flex items-center gap-1 text-accent hover:text-white/70 transition-colors text-sm">
+                                    Baca <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
                         </article>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <div class="md:col-span-3 text-center py-16 text-white/40">
+                        <div class="md:col-span-3 text-center py-16 text-white/40 clean-panel rounded-lg">
                             <i class="fas fa-newspaper text-4xl mb-4 block"></i>
                             <p>Belum ada berita yang ditambahkan.</p>
-                            <a href="admin/login.php" class="mt-4 inline-block text-tide hover:underline text-sm">Tambah via Admin Panel</a>
+                            <a href="admin/login.php" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded text-accent border border-accent/20 text-sm hover:border-accent/50">Tambah via Admin</a>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -766,37 +699,44 @@ function formatTanggal(?string $tanggal): string {
         </section>
 
         <!-- Tentang Section -->
-        <section id="tentang" class="py-20 bg-night-light/50">
+        <section id="tentang" class="py-20 bg-midnight/30">
             <div class="mx-auto max-w-7xl px-6">
-                <div class="text-center mb-12">
-                    <span class="text-xs uppercase tracking-[0.5em] text-white/60">Tentang SEMA</span>
-                    <h2 class="font-display text-3xl md:text-4xl font-bold mt-4 mb-4">Kami merajut aspirasi, menghubungkan komunitas.</h2>
-                    <p class="text-white/70 max-w-2xl mx-auto">
-                        Menjadi jembatan antara mahasiswa, program studi, serta jajaran fakultas berarti memupuk rasa percaya. Kami menjaga ritme komunikasi, menyediakan data aspirasi yang rapi, dan menindaklanjuti isu hingga tuntas.
-                    </p>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="border border-white/5 bg-white/5 rounded-2xl p-6 text-center">
-                        <div class="text-3xl font-bold text-tide mb-2">94%</div>
-                        <div class="text-xs uppercase tracking-[0.4em] text-white/60">Kepuasan</div>
-                        <div class="mt-3 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                            <div class="h-full w-[94%] bg-tide rounded-full"></div>
+                <div class="grid lg:grid-cols-[1.1fr_1fr] gap-10 items-start">
+                    <div>
+                        <span class="text-xs uppercase tracking-[0.5em] text-white/60">Tentang SEMA</span>
+                        <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4">Kami merajut aspirasi, menghubungkan komunitas.</h2>
+                        <p class="text-white/70 max-w-2xl">
+                            Menjadi jembatan antara mahasiswa, program studi, serta jajaran fakultas berarti memupuk rasa percaya. Kami menjaga ritme komunikasi, menyediakan data aspirasi yang rapi, dan menindaklanjuti isu hingga tuntas.
+                        </p>
+                        <div class="mt-8 flex flex-wrap gap-3">
+                            <span class="px-4 py-2 clean-panel rounded-lg text-xs uppercase tracking-[0.35em] text-white/70">Aspirasi</span>
+                            <span class="px-4 py-2 clean-panel rounded-lg text-xs uppercase tracking-[0.35em] text-white/70">Kolaborasi</span>
+                            <span class="px-4 py-2 clean-panel rounded-lg text-xs uppercase tracking-[0.35em] text-white/70">Komunitas</span>
                         </div>
                     </div>
-                    <div class="border border-white/5 bg-white/5 rounded-2xl p-6 text-center">
-                        <div class="text-3xl font-bold text-ember mb-2">120+</div>
-                        <div class="text-xs uppercase tracking-[0.4em] text-white/60">Kolaborator</div>
-                        <p class="mt-2 text-xs text-white/60">Dari 12 komunitas</p>
-                    </div>
-                    <div class="border border-white/5 bg-white/5 rounded-2xl p-6 text-center">
-                        <div class="text-3xl font-bold text-blush mb-2">50+</div>
-                        <div class="text-xs uppercase tracking-[0.4em] text-white/60">Kegiatan</div>
-                        <p class="mt-2 text-xs text-white/60">Per tahun</p>
-                    </div>
-                    <div class="border border-white/5 bg-white/5 rounded-2xl p-6 text-center">
-                        <div class="text-3xl font-bold text-purple-400 mb-2">5</div>
-                        <div class="text-xs uppercase tracking-[0.4em] text-white/60">Bidang</div>
-                        <p class="mt-2 text-xs text-white/60">Aktif berjalan</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="clean-panel rounded-lg p-5 text-center">
+                            <div class="text-3xl font-bold text-accent mb-1">94%</div>
+                            <div class="text-xs uppercase tracking-[0.3em] text-white/60">Kepuasan</div>
+                            <div class="mt-2 h-1 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full w-[94%] bg-accent rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="clean-panel rounded-lg p-5 text-center">
+                            <div class="text-3xl font-bold text-accent mb-1">120+</div>
+                            <div class="text-xs uppercase tracking-[0.3em] text-white/60">Kolaborator</div>
+                            <p class="mt-2 text-xs text-white/50">12 komunitas</p>
+                        </div>
+                        <div class="clean-panel rounded-lg p-5 text-center">
+                            <div class="text-3xl font-bold text-accent mb-1">50+</div>
+                            <div class="text-xs uppercase tracking-[0.3em] text-white/60">Kegiatan</div>
+                            <p class="mt-2 text-xs text-white/50">Per tahun</p>
+                        </div>
+                        <div class="clean-panel rounded-lg p-5 text-center">
+                            <div class="text-3xl font-bold text-accent mb-1">5</div>
+                            <div class="text-xs uppercase tracking-[0.3em] text-white/60">Bidang Aktif</div>
+                            <p class="mt-2 text-xs text-white/50">Berjalan optimal</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -807,70 +747,67 @@ function formatTanggal(?string $tanggal): string {
             <div class="mx-auto max-w-7xl px-6">
                 <div class="text-center mb-12">
                     <span class="text-xs uppercase tracking-[0.5em] text-white/60">Kontak Kami</span>
-                    <h2 class="font-display text-3xl md:text-4xl font-bold mt-4 mb-4">Mari ngobrol soal ide baru.</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4">Mari ngobrol soal ide baru.</h2>
                     <p class="text-white/70 max-w-xl mx-auto">Punya pertanyaan, aspirasi, atau ide kolaborasi? Jangan ragu untuk menghubungi kami.</p>
                 </div>
                 <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
                     <!-- Info Kontak -->
                     <div class="space-y-6">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-tide/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-tide text-lg"></i>
+                        <div class="clean-panel rounded-lg p-5 flex items-center gap-3">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-accent"></i>
                             </div>
                             <div>
-                                <p class="text-xs uppercase tracking-widest text-white/40 mb-1">Lokasi</p>
-                                <p class="text-white/80">Gedung Bonaventura Lt. 4, Kampus FTI UAJY</p>
+                                <p class="text-xs uppercase tracking-widest text-white/40">Lokasi</p>
+                                <p class="text-white/80 text-sm">Gedung Bonaventura Lt. 4, Kampus FTI UAJY</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-ember/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-envelope text-ember text-lg"></i>
+                        <div class="clean-panel rounded-lg p-5 flex items-center gap-3">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-accent"></i>
                             </div>
                             <div>
-                                <p class="text-xs uppercase tracking-widest text-white/40 mb-1">Email</p>
-                                <p class="text-white/80"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="384b5d5559165e4c51784d59524116595b16515c">[email&#160;protected]</a></p>
+                                <p class="text-xs uppercase tracking-widest text-white/40">Email</p>
+                                <p class="text-white/80 text-sm">sema@fti.uajy.ac.id</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-blush/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-phone text-blush text-lg"></i>
+                        <div class="clean-panel rounded-lg p-5 flex items-center gap-3">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-accent"></i>
                             </div>
                             <div>
-                                <p class="text-xs uppercase tracking-widest text-white/40 mb-1">Telepon</p>
-                                <p class="text-white/80">+62 812 3456 7890</p>
+                                <p class="text-xs uppercase tracking-widest text-white/40">Telepon</p>
+                                <p class="text-white/80 text-sm">+62 812 3456 7890</p>
                             </div>
                         </div>
-                        <div class="pt-4 border-t border-white/10">
-                            <p class="text-xs uppercase tracking-widest text-white/40 mb-4">Ikuti Kami</p>
-                            <div class="flex gap-3">
-                                <a href="/cdn-cgi/l/email-protection#3d5b4954485c5744134e58535c49505c555c4e544e4a5c7d5a505c5451135e5250" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-ember/20 transition-colors">
-                                    <i class="fas fa-envelope text-ember"></i>
+                        <div class="clean-panel rounded-lg p-5">
+                            <p class="text-xs uppercase tracking-widest text-white/40 mb-3">Ikuti Kami</p>
+                            <div class="flex gap-2">
+                                <a href="https://instagram.com" target="_blank" class="w-9 h-9 bg-accent/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors">
+                                    <i class="fab fa-instagram text-accent"></i>
                                 </a>
-                                <a href="https://instagram.com" target="_blank" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-tide/20 transition-colors">
-                                    <i class="fab fa-instagram text-tide"></i>
-                                </a>
-                                <a href="#" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors">
-                                    <i class="fab fa-line text-white"></i>
+                                <a href="#" class="w-9 h-9 bg-accent/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors">
+                                    <i class="fab fa-line text-accent"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <!-- Form -->
-                    <div class="border border-white/5 bg-white/5 rounded-3xl p-8">
-                        <form id="contactForm" class="space-y-5">
+                    <div class="clean-panel rounded-lg p-8">
+                        <form id="contactForm" class="space-y-4">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-white/80 mb-2">Nama Lengkap</label>
-                                <input type="text" id="name" class="w-full px-4 py-3 bg-night border border-white/10 rounded-xl text-white placeholder-white/40 focus:border-tide focus:outline-none transition-colors" placeholder="Masukkan nama">
+                                <label for="name" class="block text-sm font-medium text-white/80 mb-1">Nama Lengkap</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:border-accent focus:outline-none transition-colors" placeholder="Masukkan nama">
                             </div>
                             <div>
-                                <label for="email" class="block text-sm font-medium text-white/80 mb-2">Email</label>
-                                <input type="email" id="email" class="w-full px-4 py-3 bg-night border border-white/10 rounded-xl text-white placeholder-white/40 focus:border-tide focus:outline-none transition-colors" placeholder="nama@email.com">
+                                <label for="email" class="block text-sm font-medium text-white/80 mb-1">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:border-accent focus:outline-none transition-colors" placeholder="nama@email.com">
                             </div>
                             <div>
-                                <label for="message" class="block text-sm font-medium text-white/80 mb-2">Pesan</label>
-                                <textarea id="message" rows="4" class="w-full px-4 py-3 bg-night border border-white/10 rounded-xl text-white placeholder-white/40 focus:border-tide focus:outline-none transition-colors resize-none" placeholder="Tulis pesan Anda..."></textarea>
+                                <label for="message" class="block text-sm font-medium text-white/80 mb-1">Pesan</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:border-accent focus:outline-none transition-colors resize-none" placeholder="Tulis pesan Anda..."></textarea>
                             </div>
-                            <button type="submit" class="w-full px-6 py-4 bg-tide text-night font-semibold rounded-xl hover:shadow-[0_0_30px_rgba(15,215,214,0.3)] transition-all">
+                            <button type="submit" class="w-full px-6 py-3 bg-accent text-night font-semibold rounded-lg hover:opacity-90 transition-opacity">
                                 Kirim Pesan
                             </button>
                         </form>
@@ -890,7 +827,7 @@ function formatTanggal(?string $tanggal): string {
                         <img src="asset/img/icon.png" alt="Logo" class="h-12 w-12 rounded-full border border-white/10">
                         <div>
                             <p class="text-xs uppercase tracking-[0.35em] text-white/60">FTI UAJY</p>
-                            <p class="font-display font-semibold">SENAT MAHASISWA</p>
+                            <p class="font-semibold">SENAT MAHASISWA</p>
                         </div>
                     </div>
                     <p class="text-white/60 text-sm leading-relaxed">
@@ -902,34 +839,31 @@ function formatTanggal(?string $tanggal): string {
                 <div>
                     <h4 class="font-semibold mb-4">Navigasi</h4>
                     <ul class="space-y-2">
-                        <li><a href="#home" class="text-white/60 hover:text-white transition-colors">Home</a></li>
-                        <li><a href="#bidang" class="text-white/60 hover:text-white transition-colors">Bidang</a></li>
-                        <li><a href="#komunitas" class="text-white/60 hover:text-white transition-colors">Komunitas</a></li>
-                        <li><a href="#berita" class="text-white/60 hover:text-white transition-colors">Berita</a></li>
+                        <li><a href="#home" class="text-white/60 hover:text-white transition-colors text-sm">Home</a></li>
+                        <li><a href="#bidang" class="text-white/60 hover:text-white transition-colors text-sm">Bidang</a></li>
+                        <li><a href="#komunitas" class="text-white/60 hover:text-white transition-colors text-sm">Komunitas</a></li>
+                        <li><a href="#berita" class="text-white/60 hover:text-white transition-colors text-sm">Berita</a></li>
                     </ul>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold mb-4">Informasi</h4>
                     <ul class="space-y-2">
-                        <li><a href="#tentang" class="text-white/60 hover:text-white transition-colors">Tentang Kami</a></li>
-                        <li><a href="#kontak" class="text-white/60 hover:text-white transition-colors">Kontak</a></li>
-                        <li><a href="admin/dashboard.php" class="text-white/60 hover:text-white transition-colors">Admin Login</a></li>
+                        <li><a href="#tentang" class="text-white/60 hover:text-white transition-colors text-sm">Tentang Kami</a></li>
+                        <li><a href="#kontak" class="text-white/60 hover:text-white transition-colors text-sm">Kontak</a></li>
+                        <li><a href="admin/dashboard.php" class="text-white/60 hover:text-white transition-colors text-sm">Admin Login</a></li>
                     </ul>
                 </div>
                 
                 <!-- Social -->
                 <div>
                     <h4 class="font-semibold mb-4">Media Sosial</h4>
-                    <div class="flex gap-3">
-                        <a href="/cdn-cgi/l/email-protection#9bfdeff2eefaf1e2b5e8fef5faeff6faf3fae8f2e8ecfadbfcf6faf2f7b5f8f4f6" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-ember/20 transition-colors">
-                            <i class="fas fa-envelope text-ember"></i>
+                    <div class="flex gap-2">
+                        <a href="https://instagram.com" target="_blank" class="w-9 h-9 bg-white/5 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors">
+                            <i class="fab fa-instagram text-accent"></i>
                         </a>
-                        <a href="https://instagram.com" target="_blank" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-tide/20 transition-colors">
-                            <i class="fab fa-instagram text-tide"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors">
-                            <i class="fab fa-line text-white"></i>
+                        <a href="#" class="w-9 h-9 bg-white/5 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors">
+                            <i class="fab fa-line text-accent"></i>
                         </a>
                     </div>
                 </div>
@@ -991,6 +925,27 @@ function formatTanggal(?string $tanggal): string {
             
             setTimeout(updateLoading, 500);
             
+            // Navbar Transparency on Scroll
+            const mainHeader = document.getElementById('mainHeader');
+            const heroSection = document.getElementById('home');
+
+            function updateNavbarOnScroll() {
+                if (window.scrollY > 60) {
+                    mainHeader.style.background = 'rgba(5,5,5,0.85)';
+                    mainHeader.style.backdropFilter = 'blur(20px)';
+                    mainHeader.style.webkitBackdropFilter = 'blur(20px)';
+                    mainHeader.style.borderBottomColor = 'rgba(255,255,255,0.1)';
+                } else {
+                    mainHeader.style.background = 'transparent';
+                    mainHeader.style.backdropFilter = 'none';
+                    mainHeader.style.webkitBackdropFilter = 'none';
+                    mainHeader.style.borderBottomColor = 'transparent';
+                }
+            }
+
+            window.addEventListener('scroll', updateNavbarOnScroll, { passive: true });
+            updateNavbarOnScroll();
+
             // Mobile Menu
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const closeMobileMenu = document.getElementById('closeMobileMenu');
@@ -1024,53 +979,42 @@ function formatTanggal(?string $tanggal): string {
                 });
             }
             
-            // Slider
-            const slider = document.getElementById('slider');
-            const dots = document.querySelectorAll('.slider-dot');
-            const prevBtn = document.getElementById('prevSlide');
-            const nextBtn = document.getElementById('nextSlide');
-            let currentSlide = 0;
-            const totalSlides = 3;
+            // Hero Slider - Auto-sliding images
+            const heroSlider = document.getElementById('heroSlider');
+            const heroDots = document.querySelectorAll('.hero-dot');
+            let currentHeroSlide = 0;
+            const totalHeroSlides = 3;
             
-            function updateSlider() {
-                if (slider) {
-                    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            function updateHeroSlider() {
+                if (heroSlider) {
+                    heroSlider.style.transform = `translateX(-${currentHeroSlide * 100}%)`;
                     
-                    dots.forEach((dot, index) => {
-                        if (index === currentSlide) {
-                            dot.classList.add('bg-tide', 'w-6');
+                    heroDots.forEach((dot, index) => {
+                        if (index === currentHeroSlide) {
+                            dot.classList.add('bg-accent', 'w-6');
                             dot.classList.remove('bg-white/40', 'w-2');
                         } else {
-                            dot.classList.remove('bg-tide', 'w-6');
+                            dot.classList.remove('bg-accent', 'w-6');
                             dot.classList.add('bg-white/40', 'w-2');
                         }
                     });
                 }
             }
             
-            if (slider) {
-                updateSlider();
+            if (heroSlider) {
+                updateHeroSlider();
                 
-                prevBtn?.addEventListener('click', () => {
-                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                    updateSlider();
-                });
-                
-                nextBtn?.addEventListener('click', () => {
-                    currentSlide = (currentSlide + 1) % totalSlides;
-                    updateSlider();
-                });
-                
-                dots.forEach((dot, index) => {
+                heroDots.forEach((dot, index) => {
                     dot.addEventListener('click', () => {
-                        currentSlide = index;
-                        updateSlider();
+                        currentHeroSlide = index;
+                        updateHeroSlider();
                     });
                 });
                 
+                // Auto-slide every 5 seconds
                 setInterval(() => {
-                    currentSlide = (currentSlide + 1) % totalSlides;
-                    updateSlider();
+                    currentHeroSlide = (currentHeroSlide + 1) % totalHeroSlides;
+                    updateHeroSlider();
                 }, 5000);
             }
             
