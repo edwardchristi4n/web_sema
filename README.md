@@ -143,6 +143,135 @@ _Khusus admin SEMA untuk mengelola konten:_
 - Apache web server dengan mod_rewrite
 - Tailwind CSS via CDN (tidak perlu instalasi)
 
+---
+
+## Modern Refactor (React + API)
+
+Refactor bertahap telah ditambahkan dengan struktur baru:
+
+- **Frontend React (Vite)** di folder `frontend/`
+- **Backend API (PHP)** di folder `backend/api/`
+
+Frontend baru mengambil data dari API JSON, sedangkan PHP hanya berfungsi sebagai API.
+
+### Menjalankan Backend API
+
+Pastikan XAMPP/Apache berjalan dan project tersedia di `http://localhost/Web_SEMA`.
+
+API dapat diakses di:
+
+```
+http://localhost/Web_SEMA/backend/api
+```
+
+### Menjalankan Frontend React
+
+1. Masuk ke folder frontend:
+
+```bash
+cd frontend
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Salin env dan sesuaikan base API:
+
+```bash
+copy .env.example .env
+```
+
+Atur variabel berikut bila frontend tidak bisa menampilkan gambar dari XAMPP:
+
+```
+VITE_ASSET_BASE_URL=http://localhost/Web_SEMA
+```
+
+4. Jalankan dev server:
+
+```bash
+npm run dev
+```
+
+Frontend akan berjalan di `http://localhost:5173`.
+
+### Struktur Folder Baru (Ringkas)
+
+```
+backend/
+   api/
+      _bootstrap.php
+      auth.php
+      divisi.php
+      event.php
+      member.php
+      proker.php
+      upload.php
+frontend/
+   src/
+      components/
+      layouts/
+      pages/
+      services/
+      hooks/
+      utils/
+```
+
+### Daftar Endpoint API
+
+Format response:
+
+```json
+{
+  "success": true,
+  "message": "Success message",
+  "data": []
+}
+```
+
+Endpoints:
+
+- `GET /divisi.php`
+- `GET /divisi.php?id={id}`
+- `POST /divisi.php`
+- `PUT /divisi.php?id={id}`
+- `DELETE /divisi.php?id={id}`
+
+- `GET /event.php`
+- `GET /event.php?limit=3`
+- `POST /event.php`
+- `PUT /event.php?id={id}`
+- `DELETE /event.php?id={id}`
+
+- `GET /member.php`
+- `GET /member.php?divisi_id={id}`
+- `POST /member.php`
+- `PUT /member.php?id={id}`
+- `DELETE /member.php?id={id}`
+
+- `GET /proker.php`
+- `GET /proker.php?divisi_id={id}`
+- `POST /proker.php`
+- `PUT /proker.php?id={id}`
+- `DELETE /proker.php?id={id}`
+
+- `POST /auth.php` (login)
+- `GET /auth.php` (check session)
+- `DELETE /auth.php` (logout)
+
+- `POST /upload.php?type=divisi|event|member|proker`
+
+### Login Admin React
+
+Gunakan kredensial yang sama dengan admin lama. Login tersedia di:
+
+```
+http://localhost:5173/admin/login
+```
+
 ## Instalasi & Setup
 
 ### 1. Persiapan Database
